@@ -4,6 +4,9 @@ import java.io.IOException;
 
 public class MyHttpClient {
 
+	private String hostName;
+	private int portNumber;
+	
 	public MyHttpClient(String hostName, int portNumber) throws IOException {
 		// TODO Auto-generated constructor stub
 	}
@@ -32,6 +35,21 @@ public class MyHttpClient {
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public String getHostName() {
+		return hostName;
+	}
 
+	public void setHostName(String hostName) {
+		this.hostName = hostName;
+	}
 
+	public int getPortNumber() {
+		return portNumber;
+	}
+
+	public void setPortNumber(int portNumber) {
+		this.portNumber = portNumber;
+	}
+	
 }
