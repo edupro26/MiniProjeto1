@@ -1,4 +1,3 @@
-package com.miniprojeto1.httpserver;
 
 import java.io.IOException;
 import java.util.Scanner;

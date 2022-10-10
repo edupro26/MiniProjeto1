@@ -1,5 +1,3 @@
-package com.miniprojeto1.httpserver;
-
 import java.io.IOException;
 
 public class MyHttpClient {
