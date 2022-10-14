@@ -14,19 +14,38 @@ public class MyHttpClient {
 		this.hostName = hostName;
 		this.portNumber = portNumber;
 		
-		this.socket = new Socket(hostName, portNumber);
+		this.socket = new Socket(this.hostName, this.portNumber);
 	}
-
+	
 	public void getResource(String ObjectName) throws IOException {
 		PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         
-        String request = 
-        		"GET /" + ObjectName + " HTTP/1.1" + "\r\n" +
-        		"Host: " + hostName + ":" + portNumber + "\r\n";
+        String request = "GET /" + ObjectName + " HTTP/1.1" + "\r\n";
         out.println(request);
         
-        System.out.println("\r\n" + in.readLine() + "\r\n");
+        String rawAnswer = in.readLine();
+        String answer = processAnswer(rawAnswer);
+        System.out.println("\r\n" + answer + "\r\n");
+	}
+	
+	private String processAnswer(String answer) {
+		String finalAnswer = new String();
+		boolean b = true;
+		for (int i = 0; i < answer.length(); i++) {			
+			finalAnswer += answer.charAt(i);
+			if(i + 2 < answer.length()) {
+				if(answer.charAt(i + 1) == '<' && Character.isLetter(answer.charAt(i + 2))) {
+					if(b == true) {
+						finalAnswer = finalAnswer + "\r\n\r\n";
+						b = false;
+					}				
+					else
+						finalAnswer += "\r\n";
+				}	
+			}
+		} 
+		return finalAnswer;
 	}
 
 	public void postData(String[] data) throws IOException {
@@ -44,25 +63,9 @@ public class MyHttpClient {
 		
 	}
 
-	public void close() {
-		// TODO Auto-generated method stub
+	public void close() throws IOException {
+		this.socket.close();
 		
-	}
-	
-	public String getHostName() {
-		return hostName;
-	}
-
-	public void setHostName(String hostName) {
-		this.hostName = hostName;
-	}
-
-	public int getPortNumber() {
-		return portNumber;
-	}
-
-	public void setPortNumber(int portNumber) {
-		this.portNumber = portNumber;
 	}
 	
 }
