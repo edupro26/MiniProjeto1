@@ -29,3 +29,7 @@ Marcelo Munteanu fc56359 <br />
 6- Usar o menu imprimido no terminal para gerar pedidos ao servidor<br />
 
 7- Observar ambos os terminais para ver os pedidos gerados pelo cliente e as respostas dadas pelo servidor<br />
+
+# Funcionalidade 
+
+O projeto implementa corretamente todas as funcionalidades pedidas no enunciado.
