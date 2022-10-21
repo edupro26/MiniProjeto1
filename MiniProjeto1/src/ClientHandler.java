@@ -16,16 +16,19 @@ import java.net.Socket;
  */
 public class ClientHandler extends Thread{
 	
-	private static final String EOL = System.getProperty("line.separator");
+	private final String EOL = System.getProperty("line.separator");
 	private Socket socket;
+	private int clientNo;
 	
 	/**
 	 * Accepts the communication socket and creates
 	 * a new ClientHandler for this thread
 	 * 
-	 * @param socket
+	 * @param socket communication socket
+	 * @param clientNo client number
 	 */
-	public ClientHandler(Socket socket) {
+	public ClientHandler(Socket socket, int clientNo) {
+		this.clientNo = clientNo;
 		this.socket = socket;
 	}
 
@@ -34,6 +37,7 @@ public class ClientHandler extends Thread{
 	 */
 	public void run() {
 		try {
+			System.out.println("Client connected (Active clients: " + (activeCount() - 1) + ")" + EOL);
 			processRequest(socket);
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -43,10 +47,10 @@ public class ClientHandler extends Thread{
 	/**
 	 * Reads the client's request and responds with the appropriate answer
 	 * 
-	 * @param socket our communication socket
+	 * @param socket communication socket
 	 * @throws IOException
 	 */
-	public static void processRequest(Socket socket) throws IOException {
+	public void processRequest(Socket socket) throws IOException {
 		PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
 		BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 		String s;
@@ -73,7 +77,10 @@ public class ClientHandler extends Thread{
 	 * @return the appropriate answer for the client's request
 	 * @throws FileNotFoundException
 	 */
-	private static String getAnswer(String[] request) throws FileNotFoundException {
+	private String getAnswer(String[] request) throws FileNotFoundException {
+		if(activeCount() - 1 > 5 && clientNo > 5)
+			return "HTTP/1.1 503 Service Unavailable\\r\\n";
+			
 		if(!valiadateFormat(request))
 			return "HTTP/1.1 400 Bad Request\\r\\n" + EOL;
 		
@@ -101,7 +108,7 @@ public class ClientHandler extends Thread{
 	 * @return false if there is a format error in the client's
 	 * 			request, true otherwise
 	 */
-	private static boolean valiadateFormat(String[] request) {
+	private boolean valiadateFormat(String[] request) {
 		if(request.length != 3) {
 			return false;
 		}

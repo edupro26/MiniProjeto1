@@ -26,13 +26,14 @@ public class MyHttpServer {
 			System.exit(1);
 		}
 		
+		int counter = 1;
 		int portNumber = Integer.parseInt(args[0]);
 		try (ServerSocket server = new ServerSocket(portNumber , 5)) {
 			System.out.println("Listening for request on port: " + portNumber + " ..." + EOL);
 			while (true) {
 				Socket socket = server.accept();
-				System.out.println("Client connected." + EOL);
-				new ClientHandler(socket).start();
+				new ClientHandler(socket, counter).start();
+				counter++;
 			}		
 		} catch (IOException e) {
 			System.err.println("Could not listen on port " + portNumber + EOL);
