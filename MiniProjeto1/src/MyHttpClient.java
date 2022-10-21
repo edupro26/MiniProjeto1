@@ -5,7 +5,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 
 /**
- * Client HTTP class
+ * HTTP Client class
  * 
  * @author Eduardo Proença fc57551
  * @author Marcelo Munteanu fc56359
@@ -60,7 +60,6 @@ public class MyHttpClient {
 	 * @throws IOException
 	 */
 	public void postData(String[] data) throws IOException {
-		// TODO Auto-generated method stub
 		PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
 
