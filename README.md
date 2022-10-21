@@ -16,15 +16,15 @@ Marcelo Munteanu fc56359 <br />
 
 3- Compilar os ficheiros MyHttpServer, MyHttpClient e TestMp1:<br />
   
-    $ javac MyHttpServer.java MyHttpClient.java TestMp1.java<br />
+    $ javac MyHttpServer.java MyHttpClient.java TestMp1.java
             
 4- Lançar a classe MyHttpServer:<br />
 
-    $ java MyHttpServer <portNumber><br />
+    $ java MyHttpServer <portNumber>
 
 5- Abrir outro terminal sobre o mesmo diretório e lançar a classe de teste TestMp1:<br />
 
-    $ java TestMp1 localhost <portNumber><br />
+    $ java TestMp1 localhost <portNumber>
 
 6- Usar o menu imprimido no terminal para gerar pedidos ao servidor<br />
 
